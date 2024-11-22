@@ -8,7 +8,6 @@ class AuthorRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        // Allow only admins to create authors
         return auth()->user()->role === 'admin';
     }
 

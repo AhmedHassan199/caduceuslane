@@ -2,7 +2,12 @@
 
 namespace App\Exceptions;
 
+use App\Helpers\ApiResponseHelper;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -44,5 +49,36 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $exception
+     * @return \Illuminate\Http\Response
+     */
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof ValidationException) {
+            // Handle Validation Exception
+            $errors = $exception->errors();
+            return ApiResponseHelper::error('Validation Error', 422, $errors);
+        }
+        if ($exception instanceof AuthenticationException) {
+            return ApiResponseHelper::error('You must be logged in to access this resource.', 401);
+        }
+        if ($exception instanceof HttpResponseException) {
+            // Handle HttpResponseException
+            return ApiResponseHelper::error('Bad Request', 400);
+        }
+
+        // Handle ModelNotFoundException (e.g., when a resource is not found)
+        if ($exception instanceof ModelNotFoundException) {
+            return ApiResponseHelper::error('Item Not Found', 404);
+        }
+
+        // Handle other types of exceptions (e.g., AuthenticationException)
+        return parent::render($request, $exception);
     }
 }
