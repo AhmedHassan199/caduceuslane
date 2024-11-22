@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,9 +24,36 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/authors', [AuthorController::class, 'create']);
-    Route::get('/authors', [AuthorController::class, 'index']);
-    Route::get('/authors/{id}', [AuthorController::class, 'show']);
-    Route::put('/authors/{id}', [AuthorController::class, 'update']);
-    Route::delete('/authors/{id}', [AuthorController::class, 'destroy']);
+    // Author Routes with a prefix
+    Route::prefix('authors')->group(function () {
+        Route::post('/', [AuthorController::class, 'create']);
+        Route::get('/', [AuthorController::class, 'index']);
+        Route::get('/{id}', [AuthorController::class, 'show']);
+        Route::put('/{id}', [AuthorController::class, 'update']);
+        Route::delete('/{id}', [AuthorController::class, 'destroy']);
+    });
+
+    // Category Routes
+    Route::prefix('categories')->group(function () {
+        Route::post('/', [CategoryController::class, 'create']);
+        Route::get('/', [CategoryController::class, 'index']);
+        Route::put('/{id}', [CategoryController::class, 'update']);
+        Route::delete('/{id}', [CategoryController::class, 'destroy']);
+    });
+
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::prefix('books')->group(function () {
+            Route::post('/', [BookController::class, 'create']);
+            Route::get('/', [BookController::class, 'index']);
+            Route::get('/{id}', [BookController::class, 'show']);
+            Route::put('/{id}', [BookController::class, 'update']);
+            Route::delete('/{id}', [BookController::class, 'destroy']);
+        });
+    });
+
 });
+
+
+
+
