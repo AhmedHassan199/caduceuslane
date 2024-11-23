@@ -9,11 +9,9 @@ class BookRepository
     // Create a new book
     public function create(array $data)
     {
-        $data['author_id'] = Auth::id(); // Associate the book with the logged-in author
+        $data['author_id'] = Auth::id();
         return Book::create($data);
     }
-
-    // Get all books, with search functionality
     public function getAll($search = null)
     {
         $query = Book::query();

@@ -17,8 +17,6 @@ class CategoryController extends Controller
     {
         $this->categoryService = $categoryService;
 
-        // Ensure only admins can manage categories
-        $this->middleware('is_admin');
     }
 
     /**

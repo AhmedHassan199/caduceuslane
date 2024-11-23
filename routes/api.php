@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::middleware('auth:sanctum')->group(function () {
-    // Author Routes with a prefix
+    Route::middleware('is_admin')->group(function () {
     Route::prefix('authors')->group(function () {
         Route::post('/', [AuthorController::class, 'create']);
         Route::get('/', [AuthorController::class, 'index']);
@@ -32,17 +32,17 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/{id}', [AuthorController::class, 'update']);
         Route::delete('/{id}', [AuthorController::class, 'destroy']);
     });
+});
 
     // Category Routes
-    Route::prefix('categories')->group(function () {
-        Route::post('/', [CategoryController::class, 'create']);
-        Route::get('/', [CategoryController::class, 'index']);
-        Route::put('/{id}', [CategoryController::class, 'update']);
-        Route::delete('/{id}', [CategoryController::class, 'destroy']);
-    });
-
-
-    Route::middleware('auth:sanctum')->group(function () {
+    Route::middleware('is_admin')->group(function () {
+        Route::prefix('categories')->group(function () {
+            Route::post('/', [CategoryController::class, 'create']);
+            Route::get('/', [CategoryController::class, 'index']);
+            Route::put('/{id}', [CategoryController::class, 'update']);
+            Route::delete('/{id}', [CategoryController::class, 'destroy']);
+        });
+        });
         Route::prefix('books')->group(function () {
             Route::post('/', [BookController::class, 'create']);
             Route::get('/', [BookController::class, 'index']);
@@ -50,7 +50,6 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::put('/{id}', [BookController::class, 'update']);
             Route::delete('/{id}', [BookController::class, 'destroy']);
         });
-    });
 
 });
 

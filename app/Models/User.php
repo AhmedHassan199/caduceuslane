@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Category::class, 'category_author');
     }
+
+    public function books()
+    {
+        return $this->hasMany(Book::class, 'author_id');
+    }
 }

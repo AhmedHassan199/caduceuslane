@@ -15,9 +15,18 @@ class BookService
 
     // Create a new book
     public function create(array $data)
-    {
-        return $this->bookRepo->create($data);
+{
+    if (isset($data['cover'])) {
+        $cover = $data['cover'];
+
+        $coverPath = $cover->store('covers', 'public');
+
+        $data['cover'] = $coverPath;
     }
+
+    return $this->bookRepo->create($data);
+}
+
 
     // Get all books with search
     public function getAll($search = null)

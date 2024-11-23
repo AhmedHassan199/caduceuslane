@@ -14,11 +14,13 @@ class CreateAuthorRequest extends BaseFormRequest
 
     public function rules()
     {
-        return [
-            'name' => 'required|string|min:2|max:100',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6|max:50|regex:/[a-z]/|regex:/[A-Z]/|regex:/[\W_]/', // password with upper, lower, and special chars
-        ];
+        $userId = $this->route('id');
+
+    return [
+        'name' => 'required|string|min:2|max:100',
+        'email' => 'required|email|unique:users,email,' . $userId,
+        'password' => 'required|string|min:6|max:50|regex:/[a-z]/|regex:/[A-Z]/|regex:/[\W_]/',
+    ];
     }
 
     public function messages()
