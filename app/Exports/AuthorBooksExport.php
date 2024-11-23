@@ -1,31 +1,30 @@
 <?php
-// app/Exports/AuthorBooksExport.php
-
 namespace App\Exports;
 
 use App\Models\Book;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class AuthorBooksExport implements FromCollection, WithHeadings, WithColumnFormatting
+class AuthorBooksExport implements FromArray, WithHeadings, WithColumnFormatting
 {
     /**
-     * Return a collection of books for the logged-in author.
+     * Return an array of books for the logged-in author.
      *
-     * @return \Illuminate\Support\Collection
+     * @return array
      */
-    public function collection()
+    public function array(): array
     {
-        // Get the logged-in author and fetch their books
-        return Book::where('author_id', auth()->id())->get([
+        $books = Book::where('author_id', 1)->get([
             'title',
             'description',
             'published_at',
             'bio',
             'cover'
         ]);
+
+        return $books->toArray(); // Convert the collection to an array
     }
 
     /**

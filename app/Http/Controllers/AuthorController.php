@@ -32,6 +32,7 @@ class AuthorController extends Controller
         return ApiResponseHelper::success(UserResource::collection($authors), 'Authors retrieved successfully.');
     }
 
+
     // Get a specific author
     public function show($id)
     {

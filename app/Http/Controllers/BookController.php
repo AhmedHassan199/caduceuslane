@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AuthorBooksExport;
 use App\Http\Requests\CreateBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Http\Resources\BookResource;
 use App\Services\BookService;
 use App\Helpers\ApiResponseHelper;
+use App\Imports\BooksImport;
 use App\Models\Book;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BookController extends Controller
 {
@@ -31,6 +35,23 @@ class BookController extends Controller
         $search = request()->query('search');
         $books = $this->bookService->getAll($search);
         return ApiResponseHelper::success(BookResource::collection($books), 'Books fetched successfully');
+    }
+    public function export()
+    {
+        return Excel::download(new AuthorBooksExport, 'author_books.xlsx');
+    }
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,csv|max:10240',
+        ]);
+
+        try {
+            Excel::import(new BooksImport, $request->file('file'));
+            return ApiResponseHelper::success(null, 'Books imported successfully');
+        } catch (\Exception $e) {
+            return ApiResponseHelper::error('Error during import: ' . $e->getMessage(), 500);
+        }
     }
 
     public function show($id)

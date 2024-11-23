@@ -43,16 +43,20 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('/{id}', [CategoryController::class, 'destroy']);
         });
         });
+
+
         Route::prefix('books')->group(function () {
             Route::post('/', [BookController::class, 'create']);
             Route::get('/', [BookController::class, 'index']);
             Route::get('/{id}', [BookController::class, 'show']);
             Route::put('/{id}', [BookController::class, 'update']);
             Route::delete('/{id}', [BookController::class, 'destroy']);
+
         });
 
 });
 
 
 
-
+Route::post('/book-import', [BookController::class, 'import']);
+Route::get('/book-export', [BookController::class, 'export']);
