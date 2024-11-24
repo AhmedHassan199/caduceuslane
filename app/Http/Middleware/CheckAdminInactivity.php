@@ -16,7 +16,6 @@ class CheckAdminInactivity
             $lastActivity = $user->last_activity_at;
 
             if ($lastActivity) {
-                // Calculate inactivity duration
                 $inactivityDuration = Carbon::parse($lastActivity)->diffInMinutes(now());
 
                 if ($inactivityDuration > 15) {
