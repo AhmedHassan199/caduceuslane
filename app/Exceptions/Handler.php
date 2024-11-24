@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use App\Helpers\ApiResponseHelper;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -78,6 +79,12 @@ class Handler extends ExceptionHandler
             return ApiResponseHelper::error('Item Not Found', 404);
         }
 
+        if ($exception instanceof AuthorizationException) {
+            return response()->json([
+                'message' => 'You are not authorized to perform this action.',
+                'code' => 403,
+            ], 403);
+        }
         // Handle other types of exceptions (e.g., AuthenticationException)
         return parent::render($request, $exception);
     }

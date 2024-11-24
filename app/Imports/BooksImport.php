@@ -44,6 +44,7 @@ class BooksImport implements ToModel, WithHeadingRow, WithValidation
             'published_at' => 'required|date',
             'bio' => 'required|string|min:5|max:500',
             'cover' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
+            'category_id' => 'nullable|exists:categories,id',
         ];
     }
 

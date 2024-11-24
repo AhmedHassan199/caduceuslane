@@ -13,7 +13,7 @@ class CreateBookRequest extends BaseFormRequest
             'published_at' => 'required|date',
             'bio' => 'required|string|min:5|max:500',
             'cover' => 'required|image|mimes:png,jpg,jpeg,webp|max:2048',
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'nullable|exists:categories,id',
 
         ];
     }

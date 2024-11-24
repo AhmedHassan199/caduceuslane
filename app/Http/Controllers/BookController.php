@@ -85,7 +85,7 @@ class BookController extends Controller
         $book = $this->bookService->getById($id);
 
         $this->authorize('delete', $book);
-
+dd($this->authorize('delete', $book));
         $this->bookService->delete($book);
         return ApiResponseHelper::success([], 'Book deleted successfully');
     }
