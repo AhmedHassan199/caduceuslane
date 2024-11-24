@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum' , 'check_admin_inactivity')->group(function () {
     Route::middleware('is_admin')->group(function () {
     Route::prefix('authors')->group(function () {
         Route::post('/', [AuthorController::class, 'create']);

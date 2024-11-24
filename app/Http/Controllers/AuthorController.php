@@ -28,6 +28,7 @@ class AuthorController extends Controller
     // Get all authors
     public function index()
     {
+
         $authors = $this->authorService->getAll();
         return ApiResponseHelper::success(UserResource::collection($authors), 'Authors retrieved successfully.');
     }
