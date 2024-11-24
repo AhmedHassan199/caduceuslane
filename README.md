@@ -3,6 +3,9 @@
 This Laravel RESTful API, named "book_management_system", allows you to manage books, authors, categories, and related operations. The system includes user authentication for admins and authors, book management (CRUD), category management, and token expiration for admins after inactivity.
 ## Desgin Pattern 
   - Service Repository Design Pattern.
+  - form request for validation
+  - resources to handle responce
+  - ApiResponceHelper to handle responce 
 
 ## Features
 
@@ -173,7 +176,7 @@ If you're using **meetawebsite** for meta tag optimization, ensure your configur
 
 ## Import Postman Collection
 
-- Download the [Postman Collection](<Documets/Version 1.0.postman_collection.json>) file.
+- Download the [Postman Collection](<Documets/Author_books.postman_collection.json>) file.
 - Click here for Postman documentation: [Postman Public](https://documenter.getpostman.com/view/25544790/2sAYBUDXkm).
 
 1. Open Postman.
