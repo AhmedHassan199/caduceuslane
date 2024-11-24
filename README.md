@@ -1,6 +1,9 @@
 # Book Management API
 
 This Laravel RESTful API, named "book_management_system", allows you to manage books, authors, categories, and related operations. The system includes user authentication for admins and authors, book management (CRUD), category management, and token expiration for admins after inactivity.
+## Desgin Pattern 
+  - Service Repository Design Pattern.
+
 ## Features
 
 - **User Authentication:**
@@ -155,12 +158,7 @@ If you're using **meetawebsite** for meta tag optimization, ensure your configur
 - `created_at`
 - `updated_at`
 
-## Book_Authors
-**Attributes:**
-- `book_id` (Foreign Key referencing `books.id`, Composite Primary Key)
-- `author_id` (Foreign Key referencing `authors.id`, Composite Primary Key)
-- `created_at`
-- `updated_at`
+
 
 ## Summary of Relationships
 
