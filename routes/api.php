@@ -46,6 +46,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
         Route::prefix('books')->group(function () {
+            Route::get('/book-export', [BookController::class, 'export']);
+            Route::post('/book-import', [BookController::class, 'import']);
             Route::post('/', [BookController::class, 'create']);
             Route::get('/', [BookController::class, 'index']);
             Route::get('/{id}', [BookController::class, 'show']);
@@ -58,5 +60,3 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
-Route::post('/book-import', [BookController::class, 'import']);
-Route::get('/book-export', [BookController::class, 'export']);

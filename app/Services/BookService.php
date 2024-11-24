@@ -29,9 +29,9 @@ class BookService
 
 
     // Get all books with search
-    public function getAll($search = null)
+    public function getAll($search = null , $authorId = null)
     {
-        return $this->bookRepo->getAll($search);
+        return $this->bookRepo->getAll($search , $authorId);
     }
 
     // Get a specific book

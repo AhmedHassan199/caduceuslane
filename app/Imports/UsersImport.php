@@ -2,11 +2,25 @@
 
 namespace App\Imports;
 
-use App\Models\Book;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\WithValidation;
+
+class UsersImport implements ToModel
+{
+    /**
+    * @param array $row
+    *
+    * @return \Illuminate\Database\Eloquent\Model|null
+    */
+    public function model(array $row)
+    {
+        dd("SAd");
+
+        return new User([
+        ]);
+    }
+}
+
 
 class BooksImport implements ToModel, WithHeadingRow, WithValidation
 {
@@ -19,13 +33,12 @@ class BooksImport implements ToModel, WithHeadingRow, WithValidation
 
     public function model(array $row)
     {
-
         return new Book([
             'title' => $row['title'],
             'description' => $row['description'],
             'published_at' => $row['published_at'],
             'bio' => $row['bio'],
-            'cover' => $this->handleCoverImage($row['cover_image_path']),
+            'cover' => $this->handleCoverImage($row['cover']),
             'author_id' => Auth::id(),
         ]);
 

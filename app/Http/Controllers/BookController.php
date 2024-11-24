@@ -10,6 +10,7 @@ use App\Services\BookService;
 use App\Helpers\ApiResponseHelper;
 use App\Imports\BooksImport;
 use App\Models\Book;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -33,7 +34,9 @@ class BookController extends Controller
     public function index()
     {
         $search = request()->query('search');
-        $books = $this->bookService->getAll($search);
+        $authorId = request()->query('author_id');
+
+        $books = $this->bookService->getAll($search , $authorId);
         return ApiResponseHelper::success(BookResource::collection($books), 'Books fetched successfully');
     }
     public function export()
@@ -42,16 +45,19 @@ class BookController extends Controller
     }
     public function import(Request $request)
     {
-        $request->validate([
-            'file' => 'required|mimes:xlsx,csv|max:10240',
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|file|mimes:xlsx,csv|max:2048',
         ]);
+        Excel::import(new BooksImport(), $request->file('file'));
 
-        try {
-            Excel::import(new BooksImport, $request->file('file'));
-            return ApiResponseHelper::success(null, 'Books imported successfully');
-        } catch (\Exception $e) {
-            return ApiResponseHelper::error('Error during import: ' . $e->getMessage(), 500);
-        }
+        // if ($validator->fails()) {
+        //     return ApiResponseHelper::error($validator->errors(), 'Invalid file format or size');
+        // }
+        // try {
+        //     return ApiResponseHelper::success([], 'Books imported successfully');
+        // } catch (\Exception $e) {
+        //     return ApiResponseHelper::error( $e->getMessage(), 400 ); ;
+        // }
     }
 
     public function show($id)

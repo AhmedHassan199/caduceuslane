@@ -12,9 +12,10 @@ class BookRepository
         $data['author_id'] = Auth::id();
         return Book::create($data);
     }
-    public function getAll($search = null)
+    public function getAll($search = null , $authorId = null)
     {
         $query = Book::query();
+        $query = Book::with('author');
 
         if ($search) {
             $query->where(function($q) use ($search) {
@@ -23,6 +24,9 @@ class BookRepository
             });
         }
 
+        if ($authorId) {
+            $query->where('author_id', $authorId);
+        }
         return $query->get();
     }
 
