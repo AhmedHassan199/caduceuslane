@@ -48,16 +48,16 @@ class BookController extends Controller
         $validator = Validator::make($request->all(), [
             'file' => 'required|file|mimes:xlsx,csv|max:2048',
         ]);
-        Excel::import(new BooksImport(), $request->file('file'));
 
-        // if ($validator->fails()) {
-        //     return ApiResponseHelper::error($validator->errors(), 'Invalid file format or size');
-        // }
-        // try {
-        //     return ApiResponseHelper::success([], 'Books imported successfully');
-        // } catch (\Exception $e) {
-        //     return ApiResponseHelper::error( $e->getMessage(), 400 ); ;
-        // }
+        if ($validator->fails()) {
+            return ApiResponseHelper::error($validator->errors(), 'Invalid file format or size');
+        }
+        try {
+            Excel::import(new BooksImport(), $request->file('file'));
+            return ApiResponseHelper::success([], 'Books imported successfully');
+        } catch (\Exception $e) {
+            return ApiResponseHelper::error( $e->getMessage(), 400 ); ;
+        }
     }
 
     public function show($id)
