@@ -13,6 +13,7 @@ class UpdateBookRequest extends BaseFormRequest
             'published_at' => 'nullable|date',
             'bio' => 'nullable|string|min:5|max:500',
             'cover' => 'nullable|image|mimes:png,jpg,jpeg,webp|max:2048',
+            'category_id' => 'required|exists:categories,id',
         ];
     }
 }
