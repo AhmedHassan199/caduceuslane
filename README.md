@@ -63,8 +63,8 @@ Before you begin, make sure you have the following installed:
 1. **Clone the Repository:**
 
     ```bash
-    git clone https://github.com/AhmedHassan199/task_management_system.git
-    cd task_management_system
+    git clone https://github.com/AhmedHassan199/caduceuslane.git
+    cd caduceuslane
     ```
 
 2. **Install Dependencies:**
@@ -96,7 +96,7 @@ Before you begin, make sure you have the following installed:
 
     ```bash
     php artisan migrate
-    php artisan db:seed
+    php artisan db:seed AdminSeeder
     ```
 
     This will create the necessary database tables and seed initial data for the application (including the admin user and necessary roles).
@@ -128,16 +128,6 @@ If you're using **meetawebsite** for meta tag optimization, ensure your configur
 - `created_at`
 - `updated_at`
 
-## Authors
-**Attributes:**
-- `id` (Primary Key)
-- `user_id` (Foreign Key referencing `users.id`)
-- `name`
-- `email`
-- `password`
-- `created_at`
-- `updated_at`
-
 ## Categories
 **Attributes:**
 - `id` (Primary Key)
@@ -159,7 +149,6 @@ If you're using **meetawebsite** for meta tag optimization, ensure your configur
 - `updated_at`
 
 
-
 ## Summary of Relationships
 
 **Users and Authors:**
@@ -174,10 +163,6 @@ If you're using **meetawebsite** for meta tag optimization, ensure your configur
 - One-to-Many: A category can contain many books, but each book belongs to only one category.
 - This is facilitated through the `category_id` column in the `books` table, referencing the `categories` table.
 
-**Books and Authors (via Book_Authors table):**
-- Many-to-Many: Books can have multiple authors, and authors can write multiple books.
-- This is facilitated by the `book_authors` pivot table, which connects `books` and `authors`.
-
 ## Default Laravel Tables
 - `users` (Default Laravel users table)
 - `migrations` (Default Laravel migrations table)
@@ -189,7 +174,7 @@ If you're using **meetawebsite** for meta tag optimization, ensure your configur
 ## Import Postman Collection
 
 - Download the [Postman Collection](<Documets/Version 1.0.postman_collection.json>) file.
-- Click here for Postman documentation: [Postman Public](https://documenter.getpostman.com/view/33037615/2sA3XPENr3).
+- Click here for Postman documentation: [Postman Public](https://documenter.getpostman.com/view/25544790/2sAYBUDXkm).
 
 1. Open Postman.
 
@@ -197,6 +182,3 @@ If you're using **meetawebsite** for meta tag optimization, ensure your configur
 
 3. Upload the downloaded Postman Collection file.
 
-## API Requests
-Follow the steps below to test API requests using the Postman collection:
-Download the [API DOC](<Documets/Book Management API Documentation.pdf>) file.
