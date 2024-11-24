@@ -46,11 +46,14 @@ class User extends Authenticatable
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'category_author');
+        return $this->belongsToMany(Category::class, 'category_author', 'author_id', 'category_id');
     }
 
     public function books()
     {
         return $this->hasMany(Book::class, 'author_id');
     }
+
+
+
 }

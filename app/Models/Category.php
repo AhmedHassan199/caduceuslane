@@ -13,11 +13,11 @@ class Category extends Model
     /**
      * Get the authors for the category.
      */
+
     public function authors()
     {
-        return $this->belongsToMany(User::class, 'category_author');
+        return $this->belongsToMany(User::class, 'category_author', 'category_id', 'author_id');
     }
-
     public function books()
     {
         return $this->hasMany(Book::class, 'category_id');

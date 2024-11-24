@@ -18,8 +18,8 @@ return new class extends Migration
             $table->date('published_at');
             $table->text('bio');
             $table->string('cover')->nullable();
-            $table->foreignId('author_id')->constrained('users');
-            $table->foreignId('category_id')->nullable()->constrained();
+            $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('category_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -24,21 +24,16 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        // Get credentials from the validated request
         $credentials = $request->only('email', 'password');
 
-        // Call the login method in AuthService
         $response = $this->authService->login($credentials);
 
-        // If there's an error, return an error response
         if (isset($response['error'])) {
             return ApiResponseHelper::error($response['error'], 401);
         }
 
-        // Wrap user data in a resource
         $userResource = new UserResource($response['user']);
 
-        // Return success response with user info and token
         return ApiResponseHelper::success([
             'user' => $userResource,
             'token' => $response['token'],
@@ -51,10 +46,8 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        // Call the logout method in AuthService to invalidate the token
         $response = $this->authService->logout($request);
 
-        // Return success response for logout
         return ApiResponseHelper::success($response, 'Logout successful.');
     }
 }

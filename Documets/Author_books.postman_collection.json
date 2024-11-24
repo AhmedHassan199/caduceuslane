@@ -1,0 +1,1951 @@
+{
+	"info": {
+		"_postman_id": "64f99de8-c2a0-4c3d-add6-1a49a049c464",
+		"name": "Author_books",
+		"description": "This Laravel RESTful API, named \"book_management_system\", allows you to manage books, authors, categories, and related operations. The system includes user authentication for admins and authors, book management (CRUD), category management, and token expiration for admins after inactivity.EndFragment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25544790"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.environment.set(\"access_token\", response.data.token);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@email.com\",\r\n        // \"email\": \"ahmed_hassan@example.com\",\r\n\r\n    \"password\": \"1234@Abcd\"\r\n    // \"password\": \"Password123!\"\r\n\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "login"
+					},
+					"response": [
+						{
+							"name": "login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"admin@email.com\",\r\n        // \"email\": \"ahmed_hassan@example.com\",\r\n\r\n    \"password\": \"1234@Abcd\"\r\n    // \"password\": \"Password123!\"\r\n\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 15:34:20 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 15:34:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Login successful.\",\n    \"data\": {\n        \"user\": {\n            \"id\": 1,\n            \"name\": \"Admin\",\n            \"email\": \"admin@email.com\",\n            \"role\": \"admin\",\n            \"created_at\": \"2024-11-24T10:58:09.000000Z\",\n            \"updated_at\": \"2024-11-24T15:34:20.000000Z\"\n        },\n        \"token\": \"11|5auWzLeaOcvYdAK5OMcHWzr6o22Ns7pakluLNbh48615dc19\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "logout",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"logout"
+							]
+						},
+						"description": "logout"
+					},
+					"response": [
+						{
+							"name": "logout",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/logout",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"logout"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 15:35:40 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 15:35:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Logout successful.\",\n    \"data\": {\n        \"status\": \"success\",\n        \"message\": \"Logged out successfully\"\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "login system"
+		},
+		{
+			"name": "Auther crud",
+			"item": [
+				{
+					"name": "List Authors",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/authors",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"authors"
+							]
+						},
+						"description": "List Authors"
+					},
+					"response": [
+						{
+							"name": "List Authors",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/authors",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"authors"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 15:37:00 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 15:37:00 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Authors retrieved successfully.\",\n    \"data\": [\n        {\n            \"id\": 2,\n            \"name\": \"John Doe\",\n            \"email\": \"ahmed_hassan@example.com\",\n            \"role\": \"author\",\n            \"created_at\": \"2024-11-24T11:05:17.000000Z\",\n            \"updated_at\": \"2024-11-24T11:05:17.000000Z\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "List Authors need login",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/authors",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"authors"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 15:36:06 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 15:36:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"You must be logged in to access this resource.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "delete author",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/authors/:author",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"authors",
+								":author"
+							],
+							"variable": [
+								{
+									"key": "author",
+									"value": ""
+								}
+							]
+						},
+						"description": "delete author"
+					},
+					"response": [
+						{
+							"name": "delete author",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/authors/:author",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"authors",
+										":author"
+									],
+									"variable": [
+										{
+											"key": "author",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 16:18:03 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 16:18:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"code\": 200,\n    \"message\": \"Author deleted successfully.\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "create author",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"ahmed_hassan@example.com\",\r\n    \"password\": \"Password123!\",\r\n    \"role\": \"author\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/authors",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"authors"
+							]
+						},
+						"description": "create author"
+					},
+					"response": [
+						{
+							"name": "create author",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"ahmed_hassan@example.com\",\r\n    \"password\": \"Password123!\",\r\n    \"role\": \"author\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/authors",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"authors"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 16:18:24 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 16:18:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"code\": 201,\n    \"message\": \"Author created successfully.\",\n    \"data\": {\n        \"id\": 3,\n        \"name\": \"John Doe\",\n        \"email\": \"ahmed_hassan@example.com\",\n        \"role\": \"author\",\n        \"created_at\": \"2024-11-24T16:18:24.000000Z\",\n        \"updated_at\": \"2024-11-24T16:18:24.000000Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "update author",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Updated Tag\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/authors/:author",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"authors",
+								":author"
+							],
+							"variable": [
+								{
+									"key": "author",
+									"value": ""
+								}
+							]
+						},
+						"description": "update author"
+					},
+					"response": [
+						{
+							"name": "update author",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"kamal Updated\",\r\n    \"email\": \"asd.doe@example.com\",\r\n    \"password\": \"NewPassword123!\",\r\n    \"role\": \"author\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/authors/:author",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"authors",
+										":author"
+									],
+									"variable": [
+										{
+											"key": "author",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 16:18:54 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 16:18:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"code\": 200,\n    \"message\": \"Author updated successfully.\",\n    \"data\": {\n        \"id\": 3,\n        \"name\": \"kamal Updated\",\n        \"email\": \"asd.doe@example.com\",\n        \"role\": \"author\",\n        \"created_at\": \"2024-11-24T16:18:24.000000Z\",\n        \"updated_at\": \"2024-11-24T16:18:54.000000Z\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "book",
+			"item": [
+				{
+					"name": "List books",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/books",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "",
+									"description": "(title or description)",
+									"disabled": true
+								},
+								{
+									"key": "author_id",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						},
+						"description": "List books"
+					},
+					"response": [
+						{
+							"name": "List books",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/books",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"books"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "",
+											"description": "(title or description)",
+											"disabled": true
+										},
+										{
+											"key": "author_id",
+											"value": "2",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 16:21:25 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 16:21:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "55"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"code\": 200,\n    \"message\": \"Books fetched successfully\",\n    \"data\": [\n        {\n            \"id\": 2,\n            \"title\": \"My New Book\",\n            \"description\": \"A detailed description of the book\",\n            \"published_at\": \"2024-11-23\",\n            \"bio\": \"This is the bio of the book's author\",\n            \"cover\": \"/storage/covers/9g8UyIFJ2o9b0MRvQQsDw8QYlp27LIoa5MLZu8dd.png\",\n            \"author\": {\n                \"id\": 1,\n                \"name\": \"Admin\",\n                \"email\": \"admin@email.com\",\n                \"role\": \"admin\",\n                \"created_at\": \"2024-11-24T16:14:59.000000Z\",\n                \"updated_at\": \"2024-11-24T16:21:25.000000Z\"\n            }\n        },\n        {\n            \"id\": 3,\n            \"title\": \"My New Book\",\n            \"description\": \"A detailed description of the book\",\n            \"published_at\": \"2024-11-23\",\n            \"bio\": \"This is the bio of the book's author\",\n            \"cover\": \"/storage/covers/XLMch1nLmATDBVtmnpugAU6ScLJjCFxkxxKkalCa.png\",\n            \"author\": {\n                \"id\": 1,\n                \"name\": \"Admin\",\n                \"email\": \"admin@email.com\",\n                \"role\": \"admin\",\n                \"created_at\": \"2024-11-24T16:14:59.000000Z\",\n                \"updated_at\": \"2024-11-24T16:21:25.000000Z\"\n            }\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "export",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/books/book-export",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								"book-export"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "export books"
+					},
+					"response": []
+				},
+				{
+					"name": "import",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/LAPTOP SHOP/Desktop/New Microsoft Excel Worksheet.xlsx"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/books/book-import",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								"book-import"
+							],
+							"query": [
+								{
+									"key": "file",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "import books"
+					},
+					"response": []
+				},
+				{
+					"name": "delete books",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/:book",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								":book"
+							],
+							"variable": [
+								{
+									"key": "book",
+									"value": ""
+								}
+							]
+						},
+						"description": "delete books"
+					},
+					"response": [
+						{
+							"name": "delete author",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/books/:book",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"books",
+										":book"
+									],
+									"variable": [
+										{
+											"key": "book",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 16:28:13 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 16:28:13 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"code\": 200,\n    \"message\": \"Book deleted successfully\",\n    \"data\": []\n}"
+						}
+					]
+				},
+				{
+					"name": "update books",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": " My New Book 2",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "A detailed description of the book2",
+									"type": "text"
+								},
+								{
+									"key": "published_at",
+									"value": "2024-11-23",
+									"type": "text"
+								},
+								{
+									"key": "bio",
+									"value": "This is the bio of the book's author",
+									"type": "text"
+								},
+								{
+									"key": "cover",
+									"type": "file",
+									"src": "/C:/Users/LAPTOP SHOP/Desktop/test attchement/icon-256x256.png"
+								},
+								{
+									"key": "_method",
+									"value": "PUT",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/books/:book",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books",
+								":book"
+							],
+							"variable": [
+								{
+									"key": "book",
+									"value": "1"
+								}
+							]
+						},
+						"description": "update books"
+					},
+					"response": [
+						{
+							"name": "update books",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": " My New Book 2",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "A detailed description of the book2",
+											"type": "text"
+										},
+										{
+											"key": "published_at",
+											"value": "2024-11-23",
+											"type": "text"
+										},
+										{
+											"key": "bio",
+											"value": "This is the bio of the book's author",
+											"type": "text"
+										},
+										{
+											"key": "cover",
+											"type": "file",
+											"src": "/C:/Users/LAPTOP SHOP/Desktop/test attchement/icon-256x256.png"
+										},
+										{
+											"key": "_method",
+											"value": "PUT",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/books/:book",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"books",
+										":book"
+									],
+									"variable": [
+										{
+											"key": "book",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 23 Nov 2024 13:08:11 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 23 Nov 2024 13:08:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Book updated successfully\",\n    \"code\": 200,\n    \"data\": {\n        \"id\": 1,\n        \"title\": \"My New Book 2\",\n        \"description\": \"A detailed description of the book2\",\n        \"published_at\": \"2024-11-23\",\n        \"bio\": \"This is the bio of the book's author\",\n        \"cover\": \"/storage/C:\\\\xampp\\\\tmp\\\\phpE886.tmp\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "create book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": " My New Book",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "A detailed description of the book",
+									"type": "text"
+								},
+								{
+									"key": "published_at",
+									"value": "2024-11-23",
+									"type": "text"
+								},
+								{
+									"key": "bio",
+									"value": "This is the bio of the book's author",
+									"type": "text"
+								},
+								{
+									"key": "cover",
+									"type": "file",
+									"src": "/C:/Users/LAPTOP SHOP/Desktop/test attchement/user.PNG"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/books",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"books"
+							]
+						},
+						"description": "create book"
+					},
+					"response": [
+						{
+							"name": "update books Copy",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": " My New Book",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "A detailed description of the book",
+											"type": "text"
+										},
+										{
+											"key": "published_at",
+											"value": "2024-11-23",
+											"type": "text"
+										},
+										{
+											"key": "bio",
+											"value": "This is the bio of the book's author",
+											"type": "text"
+										},
+										{
+											"key": "cover",
+											"type": "file",
+											"src": "/C:/Users/LAPTOP SHOP/Desktop/test attchement/user.PNG"
+										},
+										{
+											"key": "category_id",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/books",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"books"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 16:21:12 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 16:21:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "56"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"code\": 201,\n    \"message\": \"Book created successfully\",\n    \"data\": {\n        \"id\": 3,\n        \"title\": \"My New Book\",\n        \"description\": \"A detailed description of the book\",\n        \"published_at\": \"2024-11-23\",\n        \"bio\": \"This is the bio of the book's author\",\n        \"cover\": \"/storage/covers/XLMch1nLmATDBVtmnpugAU6ScLJjCFxkxxKkalCa.png\"\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "books of system"
+		},
+		{
+			"name": "category crud",
+			"item": [
+				{
+					"name": "List categories",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories"
+							]
+						},
+						"description": "List categories"
+					},
+					"response": [
+						{
+							"name": "List categories",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/categories",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 16:29:38 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 16:29:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"code\": 200,\n    \"message\": \"Categories retrieved successfully\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Fiction\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "delete category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories/:category",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								":category"
+							],
+							"variable": [
+								{
+									"key": "category",
+									"value": "2"
+								}
+							]
+						},
+						"description": "create category"
+					},
+					"response": [
+						{
+							"name": "not found handle",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/categories/:category",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"categories",
+										":category"
+									],
+									"variable": [
+										{
+											"key": "category",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 16:30:09 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 16:30:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"code\": 404,\n    \"message\": \"Category not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "create category",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Fiction\"\r\n \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories"
+							]
+						},
+						"description": "create category"
+					},
+					"response": [
+						{
+							"name": "create author",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Fiction\"\r\n \r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/categories",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 16:30:49 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Nov 2024 16:30:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"code\": 200,\n    \"message\": \"Category created successfully\",\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"Fiction\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "update categories",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Updated categoty \"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categories/:category",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								":category"
+							],
+							"variable": [
+								{
+									"key": "category",
+									"value": "2"
+								}
+							]
+						},
+						"description": "update categories"
+					},
+					"response": [
+						{
+							"name": "update categories",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Updated categoty \"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/categories/:category",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"categories",
+										":category"
+									],
+									"variable": [
+										{
+											"key": "category",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 23 Nov 2024 12:36:25 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 23 Nov 2024 12:36:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Category updated successfully\",\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"Updated categoty\"\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "categories of system"
+		}
+	]
+}
