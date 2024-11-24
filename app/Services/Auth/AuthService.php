@@ -14,6 +14,7 @@ class AuthService
     {
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+            $user->update(['last_activity_at' => now()]);
             $token = $user->createToken('UserLogin')->plainTextToken;
             return [
                 'user' => $user,
